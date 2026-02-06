@@ -1,0 +1,109 @@
+/* Global reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0f0f0f;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Page wrapper */
+.page-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* MAIN CONTENT AREA */
+.dashboard-container {
+  max-width: 1000px;      /* 👈 this is key */
+  margin: 40px auto;      /* 👈 centers horizontally */
+  padding: 0 20px;
+}
+
+/* Header row */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Cards */
+.card {
+  background: #2f2f2f;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.complaint-form input,
+.complaint-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.complaint-form button {
+  width: 100%;
+  padding: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.complaint-form button:hover {
+  background: #1e40af;
+}
+
+/* Complaint item */
+.complaint-item {
+  background: #3a3a3a;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Status badge */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.status.pending {
+  background: orange;
+}
+
+.status.in-progress {
+  background: #0ea5e9;
+}
+
+.status.resolved {
+  background: green;
+}
+
+/* Buttons */
+.logout-btn,
+.cancel-btn {
+  background: #ef4444;
+  border: none;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  margin-top: 10px;
+}
