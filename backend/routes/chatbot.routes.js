@@ -15,11 +15,19 @@ router.post("/", authMiddleware, async (req, res) => {
       return res.json({ reply: "Please type a valid message." });
     }
 
-    // 1️⃣ Fetch complaints
+    // Fetch complaints (latest updated first)
     const complaints = await Complaint.find({ user: req.user.id })
-      .sort({ createdAt: -1 });
+      .sort({ updatedAt: -1 });
 
-    // 2️⃣ Fetch last chat history (INSIDE async route ✅)
+    const normalizedMessage = message.toLowerCase();
+    const wantsLatestComplaintStatus =
+      normalizedMessage.includes("complaint") &&
+      normalizedMessage.includes("status") &&
+      (normalizedMessage.includes("latest") ||
+        normalizedMessage.includes("recent") ||
+        normalizedMessage.includes("current"));
+
+    // Fetch last chat history
     const chatHistory = await ChatMessage.find({ user: req.user.id })
       .sort({ createdAt: -1 })
       .limit(5)
@@ -32,24 +40,39 @@ router.post("/", authMiddleware, async (req, res) => {
         content: msg.message
       }));
 
-    // 3️⃣ Build system prompt
+    // Build system prompt
     const systemPrompt = buildSystemPrompt(req.user, complaints);
 
-    // 4️⃣ Save user message
+    // Save user message
     await ChatMessage.create({
       user: req.user.id,
       role: "user",
       message
     });
 
-    // 5️⃣ Ask AI WITH history ✅
+    if (wantsLatestComplaintStatus) {
+      const latest = complaints[0];
+      const reply = latest
+        ? `Your latest complaint "${latest.title}" is ${latest.status}.`
+        : "You do not have any complaints yet.";
+
+      await ChatMessage.create({
+        user: req.user.id,
+        role: "assistant",
+        message: reply
+      });
+
+      return res.json({ reply });
+    }
+
+    // Ask AI with history
     const reply = await askLocalAI(
       systemPrompt,
       message,
       historyMessages
     );
 
-    // 6️⃣ Save assistant reply
+    // Save assistant reply
     await ChatMessage.create({
       user: req.user.id,
       role: "assistant",

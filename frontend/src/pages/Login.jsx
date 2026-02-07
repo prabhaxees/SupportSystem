@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { apiRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
+import "../styles/auth.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,31 +33,33 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Login</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="auth-error">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleSubmit} className="auth-form">
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button type="submit">Login</button>
-      </form>
+          <button type="submit">Login</button>
+        </form>
 
-      <p>
-        Don’t have an account? <Link to="/signup">Signup</Link>
-      </p>
+        <p className="auth-link">
+          Don't have an account? <Link to="/signup">Signup</Link>
+        </p>
+      </div>
     </div>
   );
 }

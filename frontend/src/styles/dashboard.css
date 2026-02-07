@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  background: #0f0f0f;
+  background: radial-gradient(1200px 800px at 15% 10%, #2b2e7a 0%, #141632 45%, #0a0b16 100%);
   color: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -18,8 +18,8 @@ body {
 
 /* MAIN CONTENT AREA */
 .dashboard-container {
-  max-width: 1000px;      /* 👈 this is key */
-  margin: 40px auto;      /* 👈 centers horizontally */
+  max-width: 1000px;
+  margin: 40px auto;
   padding: 0 20px;
 }
 
@@ -33,10 +33,12 @@ body {
 
 /* Cards */
 .card {
-  background: #2f2f2f;
+  background: linear-gradient(160deg, rgba(28, 22, 74, 0.9), rgba(12, 12, 26, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* Form */
@@ -46,14 +48,21 @@ body {
   padding: 10px;
   margin-bottom: 12px;
   border-radius: 6px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(10, 10, 22, 0.8);
+  color: #ffffff;
   outline: none;
+}
+
+.complaint-form input:focus,
+.complaint-form textarea:focus {
+  border-color: #a78bfa;
 }
 
 .complaint-form button {
   width: 100%;
   padding: 10px;
-  background: #2563eb;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
   color: white;
   border: none;
   border-radius: 6px;
@@ -61,12 +70,13 @@ body {
 }
 
 .complaint-form button:hover {
-  background: #1e40af;
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
 }
 
 /* Complaint item */
 .complaint-item {
-  background: #3a3a3a;
+  background: rgba(16, 16, 32, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -82,21 +92,24 @@ body {
 }
 
 .status.pending {
-  background: orange;
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: #111827;
 }
 
 .status.in-progress {
-  background: #0ea5e9;
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  color: #0b1120;
 }
 
 .status.resolved {
-  background: green;
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+  color: #052e16;
 }
 
 /* Buttons */
 .logout-btn,
 .cancel-btn {
-  background: #ef4444;
+  background: linear-gradient(135deg, #ef4444, #f97316);
   border: none;
   padding: 6px 12px;
   color: white;

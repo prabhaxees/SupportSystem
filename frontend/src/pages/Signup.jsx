@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { apiRequest } from "../api/api";
+import "../styles/auth.css";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -31,12 +32,13 @@ export default function Signup() {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Signup</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="auth-error">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
         <input
           placeholder="Name"
           value={name}
@@ -56,12 +58,13 @@ export default function Signup() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit">Signup</button>
-      </form>
+          <button type="submit">Signup</button>
+        </form>
 
-      <p>
-        Already have an account? <Link to="/">Login</Link>
-      </p>
+        <p className="auth-link">
+          Already have an account? <Link to="/">Login</Link>
+        </p>
+      </div>
     </div>
   );
 }

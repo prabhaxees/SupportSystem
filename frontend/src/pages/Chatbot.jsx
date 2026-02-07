@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { apiRequest } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import "../styles/chatbot.css";
 
 export default function Chatbot() {
   const { token } = useAuth();
@@ -49,80 +50,46 @@ export default function Chatbot() {
 
   return (
     <>
-    <Navbar />
-    <div style={styles.container}>
-      <h2>Support Chatbot 🤖</h2>
+      <Navbar />
+      <div className="chatbot-page">
+        <div className="chatbot-card">
+          <h2 className="chatbot-title">Support Chatbot ??</h2>
 
-      <div style={styles.chatBox}>
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            style={{
-              ...styles.message,
-              alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-              background: msg.role === "user" ? "#4a00f7" : "#363636"
-            }}
-          >
-            {msg.text}
+          <div className="chatbot-box">
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`chatbot-message ${msg.role === "user" ? "user" : "bot"}`}
+              >
+                {msg.text}
+              </div>
+            ))}
+
+            {loading && (
+              <div className="chatbot-message bot typing">
+                <span className="typing-dot" />
+                <span className="typing-dot" />
+                <span className="typing-dot" />
+              </div>
+            )}
+
+            <div ref={bottomRef} />
           </div>
-        ))}
 
-        {loading && (
-          <div style={{ ...styles.message, background: "#363636" }}>
-            Bot is typing…
+          <div className="chatbot-input-row">
+            <input
+              className="chatbot-input"
+              placeholder="Type your message..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            />
+            <button className="chatbot-send" onClick={sendMessage} disabled={loading}>
+              Send
+            </button>
           </div>
-        )}
-
-        <div ref={bottomRef} />
+        </div>
       </div>
-
-      <div style={styles.inputBox}>
-        <input
-          style={styles.input}
-          placeholder="Type your message..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        />
-        <button onClick={sendMessage} disabled={loading}>
-          Send
-        </button>
-      </div>
-    </div>
     </>
   );
 }
-
-const styles = {
-  container: {
-    maxWidth: "600px",
-    margin: "20px auto",
-    display: "flex",
-    flexDirection: "column",
-    height: "80vh"
-  },
-  chatBox: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    padding: "10px",
-    border: "1px solid #919191",
-    borderRadius: "8px",
-    overflowY: "auto"
-  },
-  message: {
-    padding: "10px",
-    borderRadius: "8px",
-    maxWidth: "70%"
-  },
-  inputBox: {
-    display: "flex",
-    gap: "10px",
-    marginTop: "10px"
-  },
-  input: {
-    flex: 1,
-    padding: "10px"
-  }
-};
